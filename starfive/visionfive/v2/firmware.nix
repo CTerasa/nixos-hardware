@@ -8,7 +8,7 @@ let
 
   opensbi = pkgs.opensbi.override {
     withPayload = "${uboot}/u-boot.bin";
-    withFDT = "${uboot}/u-boot.dtb";
+    withFDT = "${uboot}/starfive_visionfive2.dtb";
   };
 in runCommand "firmware-starfive-visionfive-v2" {
   nativeBuildInputs = with buildPackages; [ xxd ];

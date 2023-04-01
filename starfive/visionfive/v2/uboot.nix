@@ -13,7 +13,5 @@ buildUBoot {
   };
 
   defconfig = "starfive_visionfive2_defconfig";
-  filesToInstall = [ "u-boot.bin" 
-#"u-boot.dtb" 
-];
+  filesToInstall = [ "u-boot.bin" "arch/riscv/dts/starfive_visionfive2.dtb" ];
 }
