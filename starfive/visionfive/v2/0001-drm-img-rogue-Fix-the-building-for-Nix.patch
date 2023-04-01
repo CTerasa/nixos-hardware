@@ -1,0 +1,65 @@
+From 7ba96c49192fb7aa03766d8de0ba32b599cbfa97 Mon Sep 17 00:00:00 2001
+From: Clemens Terasa <BLmadman@gmx.de>
+Date: Wed, 29 Mar 2023 20:34:16 +0200
+Subject: [PATCH] drm: img-rogue: Fix the building for Nix
+
+Using NixOS, and probably other sophisticated build environments as
+well, we need to handle variables and paths more carefully.
+
+Define the TOP directory usin the Linux kernel specific $(srctree) and
+$(src) variables instead of deriving it from MAKEFILE_LIST using a
+combination of GNU make functions lastword, realpath, dir and string
+replacement.
+
+Also add the missing HWDEFS_DIR variable so that we do not get an empty
+'-I' parameter.
+
+On the way remove the override of some variables that will be
+definitely be wrong, in general.
+---
+ drivers/gpu/drm/img/img-rogue/Makefile                         | 1 +
+ drivers/gpu/drm/img/img-rogue/config_kernel.mk                 | 3 ---
+ .../gpu/drm/img/img-rogue/services/server/env/linux/Kbuild.mk  | 1 +
+ 3 files changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/img/img-rogue/Makefile b/drivers/gpu/drm/img/img-rogue/Makefile
+index ee37ef8cadbf..d8905391259f 100755
+--- a/drivers/gpu/drm/img/img-rogue/Makefile
++++ b/drivers/gpu/drm/img/img-rogue/Makefile
+@@ -56,6 +56,7 @@ INTERNAL_KBUILD_OBJECTS=pvrsrvkm.o
+ INTERNAL_EXTRA_KBUILD_OBJECTS=""
+ TOP:=$(dir $(realpath $(lastword $(MAKEFILE_LIST))))
+ TOP:=$(TOP:/=)
++TOP:=$(srctree)/$(src)
+ BRIDGE_SOURCE_ROOT=$(TOP)/generated/rogue
+ TARGET_PRIMARY_ARCH=target_riscv64
+ PVR_ARCH=rogue
+diff --git a/drivers/gpu/drm/img/img-rogue/config_kernel.mk b/drivers/gpu/drm/img/img-rogue/config_kernel.mk
+index 503847443a33..fbba7252cccb 100644
+--- a/drivers/gpu/drm/img/img-rogue/config_kernel.mk
++++ b/drivers/gpu/drm/img/img-rogue/config_kernel.mk
+@@ -11,9 +11,6 @@ override PVR_ARCH := rogue
+ override METAG_VERSION_NEEDED := 2.8.1.0.3
+ override MIPS_VERSION_NEEDED := 2014.07-1
+ override RISCV_VERSION_NEEDED := 1.0.1
+-override KERNELDIR := /home/lisl/freelight-u-sdk/soft_3rdpart/IMG_GPU/linux/../../../work/linux
+-override KERNEL_ID := 5.15.0-00006-g35a89f4886a9-dirty
+-override PVRSRV_MODULE_BASEDIR := /lib/modules/5.15.0-00006-g35a89f4886a9-dirty/extra/
+ override KERNEL_COMPONENTS := srvkm drm_starfive
+ override KERNEL_CROSS_COMPILE := riscv64-linux-
+ override WINDOW_SYSTEM := nulldrmws
+diff --git a/drivers/gpu/drm/img/img-rogue/services/server/env/linux/Kbuild.mk b/drivers/gpu/drm/img/img-rogue/services/server/env/linux/Kbuild.mk
+index 4ba7716ab8bf..1c4db5ea38b0 100644
+--- a/drivers/gpu/drm/img/img-rogue/services/server/env/linux/Kbuild.mk
++++ b/drivers/gpu/drm/img/img-rogue/services/server/env/linux/Kbuild.mk
+@@ -51,6 +51,7 @@ ccflags-y += \
+ ccflags-y += -I$(TOP)/services/shared/devices/$(PVR_ARCH_DEFS)
+ 
+ # Errata files
++HWDEFS_DIR := $(TOP)/hwdefs/rogue
+ ccflags-y += -I$(HWDEFS_DIR) -I$(HWDEFS_DIR)/$(RGX_BNC)
+ 
+ # Linux-specific headers
+-- 
+2.38.4
+
