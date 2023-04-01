@@ -12,13 +12,13 @@ in {
   ];
 
   sdImage = {
-    imageName = "${config.sdImage.imageBaseName}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}-starfive-visionfive-v1.img";
+    imageName = "${config.sdImage.imageBaseName}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}-starfive-visionfive-v2.img";
 
     # We have to use custom boot firmware since we do not support
     # StarFive's Fedora MMC partition layout. Thus, we include this in
     # the image's firmware partition so the user can flash the custom firmware.
     populateFirmwareCommands = ''
-      cp ${firmware}/opensbi_u-boot_starfive_visionfive_v1.bin firmware/opensbi_u-boot_starfive_visionfive_v1.bin
+      cp ${firmware}/opensbi_u-boot_starfive_visionfive_v2.bin firmware/opensbi_u-boot_starfive_visionfive_v2.bin
     '';
 
     populateRootCommands = ''
