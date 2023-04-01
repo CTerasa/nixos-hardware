@@ -77,6 +77,11 @@ let
         PTP_1588_CLOCK = yes;
         STMMAC_ETH = yes;
         STMMAC_PCI = yes;
+        VIRTIO = module;
+        VIRTIO_MENU = yes;
+        VIRTIO_PCI = module;
+        VIRTIO_PCI_LEGACY = yes;
+        VIRTIO_PCI_LIB = module;
 
         # Uses irq_to_desc -> not buildable as module
         RTC_DRV_STARFIVE = yes;
