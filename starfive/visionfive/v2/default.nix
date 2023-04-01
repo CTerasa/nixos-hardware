@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  hardware.deviceTree.name = lib.mkDefault "starfive/jh7110-starfive-visionfive-v2.dtb";
+  hardware.deviceTree.name = lib.mkDefault "starfive/jh7110-visionfive-v2.dtb";
   systemd.services."serial-getty@hvc0".enable = lib.mkDefault false;
   environment.systemPackages = with pkgs; lib.mkDefault [ mtdutils ];
 
