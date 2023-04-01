@@ -10,7 +10,9 @@ let
     withPayload = "${uboot}/u-boot.bin";
     withFDT = "${uboot}/starfive_visionfive2.dtb";
   };
-in runCommand "firmware-starfive-visionfive-v2" {
+in
+runCommand "firmware-starfive-visionfive-v2"
+{
   nativeBuildInputs = with buildPackages; [ xxd ];
 } ''
   function handle_file {

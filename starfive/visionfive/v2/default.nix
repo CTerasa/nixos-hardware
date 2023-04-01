@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ...}:
+{ config, lib, pkgs, ... }:
 
 {
   hardware.deviceTree.name = lib.mkDefault "starfive/jh7110-starfive-visionfive-v2.dtb";

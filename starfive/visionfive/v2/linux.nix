@@ -8,7 +8,7 @@ let
       inherit modDirVersion;
 
       version = "${modDirVersion}-starfive-visionfive-v2";
-      
+
       src = fetchFromGitHub {
         owner = "starfive-tech";
         repo = "linux";
@@ -117,4 +117,5 @@ let
 
       extraMeta.branch = "JH7110_VisionFive2_devel";
     } // (args.argsOverride or { }));
-in lib.recurseIntoAttrs (linuxPackagesFor (callPackage linuxPkg { }))
+in
+lib.recurseIntoAttrs (linuxPackagesFor (callPackage linuxPkg { }))

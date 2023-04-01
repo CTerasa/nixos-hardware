@@ -4,7 +4,8 @@
 
 let
   firmware = pkgs.callPackage ./firmware.nix { };
-in {
+in
+{
   imports = [
     "${modulesPath}/profiles/base.nix"
     "${modulesPath}/installer/sd-card/sd-image.nix"
