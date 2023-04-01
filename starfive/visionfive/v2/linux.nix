@@ -6,7 +6,9 @@ let
   linuxPkg = { fetchFromGitHub, buildLinux, ... }@args:
     buildLinux (args // {
       inherit modDirVersion;
+
       version = "${modDirVersion}-starfive-visionfive-v2";
+      
       src = fetchFromGitHub {
         owner = "starfive-tech";
         repo = "linux";
@@ -20,9 +22,7 @@ let
         { patch = ./0001-crypto-dh-constify-struct-dh-s-pointer-members.patch; }
         { patch = ./0001-drm-img-rogue-Fix-the-building-for-Nix.patch; }
         { patch = ./visionfive-2-gpu.patch; }
-        {
-          patch = ./visionfive-2-pl330-name-collision.patch;
-        }
+        { patch = ./visionfive-2-pl330-name-collision.patch; }
 
         # Fix the issue below by applying lodified local patch
         #         { patch = fetchpatch {
@@ -30,10 +30,7 @@ let
         #           hash = "sha256-2gAEUvc/hAOY0vjg6W6Z/BbyTW2aBGord0J6B/asllQ=";
         #           };
         #         }
-        {
-          patch =
-            ./0001-kbuild-Unify-options-for-BTF-generation-for-vmlinux-.patch;
-        }
+        { patch = ./0001-kbuild-Unify-options-for-BTF-generation-for-vmlinux-.patch; }
         {
           patch = fetchpatch {
             url =
