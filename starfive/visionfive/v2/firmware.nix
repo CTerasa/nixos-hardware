@@ -10,7 +10,7 @@ let
     withPayload = "${uboot}/u-boot.bin";
     withFDT = "${uboot}/u-boot.dtb";
   };
-in runCommand "firmware-starfive-visionfive-v1" {
+in runCommand "firmware-starfive-visionfive-v2" {
   nativeBuildInputs = with buildPackages; [ xxd ];
 } ''
   function handle_file {
@@ -30,6 +30,6 @@ in runCommand "firmware-starfive-visionfive-v1" {
   }
 
   mkdir -p "$out/nix-support"
-  echo "file bin \"$out/opensbi_u-boot_starfive_visionfive_v1.bin\"" >> "$out/nix-support/hydra-build-products"
-  handle_file ${opensbi}/share/opensbi/lp64/generic/firmware/fw_payload.bin $out/opensbi_u-boot_starfive_visionfive_v1.bin
+  echo "file bin \"$out/opensbi_u-boot_starfive_visionfive_v2.bin\"" >> "$out/nix-support/hydra-build-products"
+  handle_file ${opensbi}/share/opensbi/lp64/generic/firmware/fw_payload.bin $out/opensbi_u-boot_starfive_visionfive_v2.bin
 ''

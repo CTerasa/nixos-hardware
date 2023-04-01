@@ -1,5 +1,5 @@
 # To build, use:
-# nix-build "<nixpkgs/nixos>" -I nixos-config=starfive/visionfive/v1/sd-image.nix -A config.system.build.sdImage
+# nix-build "<nixpkgs/nixos>" -I nixos-config=starfive/visionfive/v2/sd-image.nix -A config.system.build.sdImage
 { config, pkgs, modulesPath, ... }:
 
 let
