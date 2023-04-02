@@ -77,6 +77,16 @@ let
         PTP_1588_CLOCK = yes;
         STMMAC_ETH = yes;
         STMMAC_PCI = yes;
+
+        # Enable MMC for bootup
+        MMC = yes;
+        MMC_BLOCK = yes;
+        MMC_DW = yes;
+        MMC_DW_PCI = yes;
+        MMC_DW_PLTFM = yes;
+        MMC_DW_STARFIVE = yes;
+
+        # Enable virtio_pci
         VIRTIO = module;
         VIRTIO_MENU = yes;
         VIRTIO_PCI = module;
