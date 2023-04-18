@@ -75,8 +75,17 @@ let
         PINCTRL_STARFIVE = yes;
         DW_AXI_DMAC_STARFIVE = yes;
         PTP_1588_CLOCK = yes;
+
+        # Ethernet support
+        DWMAC_DWC_QOS_ETH = yes;
+        DWMAC_GENERIC = yes;
+        DWMAC_INTEL_PLAT = yes;
+        DWMAC_LOONGSON = yes;
+        DWMAC_STARFIVE_PLAT = yes;
         STMMAC_ETH = yes;
         STMMAC_PCI = yes;
+        STMMAC_PLATFORM = yes;
+
 
         # Enable MMC for bootup
         MMC = yes;
